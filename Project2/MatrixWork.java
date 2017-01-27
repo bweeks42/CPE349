@@ -12,13 +12,13 @@ public class MatrixWork {
       if (A[0].length != B.length) {
          throw new IllegalArgumentException();
       }
-      int[][] C = new int[A.length][A[0].length];
+      int[][] C = new int[A.length][B[0].length];
       int total = 0;
       int cCol = 0;
 
       for (int aRow = 0; aRow < A.length; aRow++) {
-         for (int bCol = 0; bCol < B.length; bCol++) {
-            for (int bRow = 0; bRow < B[0].length; bRow++) {
+         for (int bCol = 0; bCol < B[0].length; bCol++) {
+            for (int bRow = 0; bRow < B.length; bRow++) {
                total += (A[aRow][bRow] * B[bRow][bCol]);
             }
             C[aRow][cCol++] = total;
@@ -45,21 +45,21 @@ public class MatrixWork {
          int[][] A = new int[row][col];
 
          for (int i = 0; i < row; i++) {
-            for (int j = 0; j < row; j++) {
+            for (int j = 0; j < col; j++) {
                A[i][j] = fileScanner.nextInt();
             }
          }
 
          row = fileScanner.nextInt();
          col = fileScanner.nextInt();
-
          int[][] B = new int[row][col];
 
          for (int i = 0; i < row; i++) {
-            for (int j = 0; j < row; j++) {
+            for (int j = 0; j < col; j++) {
                B[i][j] = fileScanner.nextInt();
             }
          }
+
          try {
             int[][] C = matrixProduct(A, B);
 
@@ -72,7 +72,7 @@ public class MatrixWork {
             }
          }
          catch (IllegalArgumentException e) {
-            System.out.println("Number of rows in Matrix A does not equal number of columns in Matrix B.");
+            System.out.println("Number of columns in Matrix A does not equal number of rows in Matrix B.");
          }
 
       }
