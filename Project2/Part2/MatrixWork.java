@@ -1,4 +1,10 @@
-/**/
+/*
+Date: 1/25/17
+Project 2: MatrixWork.java
+Audrey Chan: achan65
+Blain Weeks: bjweeks
+*/
+
 import java.util.Arrays;
 import java.util.Scanner;
 import java.io.File;
