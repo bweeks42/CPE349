@@ -35,7 +35,7 @@ public class MatrixProduct {
 				System.arraycopy(C11[i], 0, C[i], 0, quadLen);
 				System.arraycopy(C12[i], 0, C[i], quadLen, quadLen);
 				System.arraycopy(C21[i], 0, C[quadLen + i], 0, quadLen);
-				System.arraycopy(C21[i], 0, C[quadLen + i], quadLen, quadLen);
+				System.arraycopy(C22[i], 0, C[quadLen + i], quadLen, quadLen);
 			}
 		}
 

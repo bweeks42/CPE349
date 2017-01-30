@@ -1,12 +1,17 @@
 import java.util.Random;
 import java.util.Arrays;
-class MatrixTest {
+import java.lang.Math;
 
+class MatrixTest {
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_RESET = "\u001B[0m";
+	
 	public static void main(String args[]) {
 		
 		Random rand = new Random();
 
-		for (int i = 1; i < 10; i++) {
+		for (int i = 1; i < Math.pow(2, 10); i *= 2) {
 			int size = i;
 			int [][] testA = generateSquareMatrix(size);	
 			int [][] testB = generateSquareMatrix(size);
@@ -19,10 +24,10 @@ class MatrixTest {
 			}
 
 			if (isCorrect) {
-				System.out.println("Passed.");
+				System.out.println("Size: " + i + ANSI_GREEN + " Passed. " + ANSI_RESET);
 			}
 			else {
-				System.out.println("Failed.");
+				System.out.println("Size: " + i + ANSI_RED + " Failed." + ANSI_RESET);
 			}
 		}
 
