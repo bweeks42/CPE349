@@ -6,12 +6,13 @@ public class MatrixTest {
 	public static final String ANSI_GREEN = "\u001B[32m";
    	public static final String ANSI_RED = "\u001B[31m";
    	public static final String ANSI_RESET = "\u001B[0m";
-
+	public static final String ANSI_YELLOW = "\u001B[33m";
+	
 	public static void main(String args[]) {
 		int maxSize = 800;
 		DAC_Tests(maxSize);
 		Strassen_Tests(maxSize);
-		System.out.println("End of output");
+		System.out.println(ANSI_YELLOW + "End of output" + ANSI_RESET);
 	}
 
 	private static void DAC_Tests(int maxSize) {
@@ -45,10 +46,10 @@ public class MatrixTest {
 			}*/
 
 			if (isCorrect) {
-				System.out.println(ANSI_GREEN + "Passed" + ANSI_RESET);
+				System.out.println("Test Size: " + i + " Result: " + ANSI_GREEN + "Passed" + ANSI_RESET);
 			}
 			else {
-				System.out.println(ANSI_RED + "Failed" + ANSI_RESET);
+				System.out.println("Test Size: " + i + "Result: " + ANSI_RED + "Failed" + ANSI_RESET);
 			}
 		}	
 	}
@@ -68,10 +69,10 @@ public class MatrixTest {
 			}
 
 			if (isCorrect) {
-				System.out.println(ANSI_GREEN + "Passed" + ANSI_RESET);
+				System.out.println("Test Size: " + i + " Result: " + ANSI_GREEN + "Passed" + ANSI_RESET);
 			}
 			else {
-				System.out.println(ANSI_RED + "Failed" + ANSI_RESET);
+				System.out.println("Test Size: " + i + " Result: " + ANSI_RED + "Failed" + ANSI_RESET);
 			}
 		}	
 	}
