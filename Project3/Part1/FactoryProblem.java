@@ -73,20 +73,24 @@ public class FactoryProblem {
 		solutionArray[0] = 0; //the first index holds fastest time
 
 		for (int i = n; i > 0; i--) {
-			if (i == n) { //exit station
-				solutionArray[0] += Math.min(line1[n] + line1[n + 1], line2[n] + line2[n + 1]);
-				solutionArray[i] = ((line1[n] + line1[n + 1]) < (line2[n] + line2[n + 1])) ? 1 : 2;
-			}
-			else if (i == 1) { //entry station
-				if (solutionArray[i + 1] == 1) { //go to line1
-					solutionArray[0] += Math.min(line1[0] + line1[1], line2[0] + line2[1] + transfer2[0]);
-					solutionArray[i] = ((line1[0] + line1[1]) < (line2[0] + line2[1] + transfer2[0])) ? 1 : 2;
-				}
-				else { //go to line2
-					solutionArray[0] += Math.min(line2[0] + line2[1], line1[0] + line1[1] + transfer1[0]);
-					solutionArray[i] = ((line1[0] + line1[1] + transfer1[0]) < (line2[0] + line2[1])) ? 1 : 2;
-				}
-			}
+         if (i == 1 && n == i) {
+               solutionArray[0] += Math.min(line1[0] + line1[1] + line1[2], line2[0] + line2[1] + line2[2]);
+               solutionArray[i] = ((line1[0] + line1[1] + line1[2]) < (line2[0] + line2[1] + line2[2])) ? 1 : 2;
+         }
+         else if (i == 1) { //entry station
+            if (solutionArray[i + 1] == 1) { //go to line1
+               solutionArray[0] += Math.min(line1[0] + line1[1], line2[0] + line2[1] + transfer2[0]);
+               solutionArray[i] = ((line1[0] + line1[1]) < (line2[0] + line2[1] + transfer2[0])) ? 1 : 2;
+            }
+            else { //go to line2
+               solutionArray[0] += Math.min(line2[0] + line2[1], line1[0] + line1[1] + transfer1[0]);
+               solutionArray[i] = ((line1[0] + line1[1] + transfer1[0]) < (line2[0] + line2[1])) ? 1 : 2;
+            }
+         }
+			else if (i == n) { //exit station
+            solutionArray[0] += Math.min(line1[n] + line1[n + 1], line2[n] + line2[n + 1]);
+            solutionArray[i] = ((line1[n] + line1[n + 1]) < (line2[n] + line2[n + 1])) ? 1 : 2;
+         }
 			else { 
 				if (solutionArray[i + 1] == 1) { //go to line1
 					solutionArray[0] += Math.min(line1[i], (line2[i] + transfer2[i - 1]));
