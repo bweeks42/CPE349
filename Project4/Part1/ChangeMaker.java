@@ -43,45 +43,35 @@ public class ChangeMaker {
 		int[] A = new int[n + 1]; //array containing minimum index choice
 		int[] solution = new int[d.length];
 		Arrays.fill(solution, 0);
-		int minIdx;
+		int minIdx, minVal;
 
 		C[0] = 0;
 		for (int i = 1; i < n + 1; i++) {
-			int[] minD = new int[d.length];
+			minVal = i;
+			minIdx = i;
 			for (int j = 0; j < d.length; j++) {
-				if (i > d[j]) {
-					minD[j] = C[i - d[j]];
+				if (i >= d[j]) {
+					if (minVal >= C[i - d[j]]) {
+						minVal = C[i - d[j]];
+						minIdx = j;
+					}
 				}
 			}
 
-			minIdx = findMinIndex(minD);
-
-			C[i] = 1 + minD[minIdx];
+			C[i] = 1 + minVal;
 			A[i] = minIdx;
 		}
 
+		System.out.println(Arrays.toString(A));
+
 		//fill solution array with coin counts
 		int j = A.length - 1;
-		while (j >= 0) {
+		while (j > 0) {
 			solution[A[j]] += 1;
 			j -= d[A[j]];
 		}
 
 		return solution;
-	}
-
-	private static int findMinIndex(int[] x) {
-		int minVal = x[0];
-		int minIdx = 0;
-
-		for (int i = 1; i < x.length; i++) {
-			if (minVal > x[i]) {
-				minVal = x[i];
-				minIdx = i;
-			}
-		}
-
-		return minIdx;
 	}
 
 	private static void printSolution(int n, int k, int []solution, int []denominations) {
@@ -93,11 +83,15 @@ public class ChangeMaker {
 
 		System.out.print("Optimal distribution: ");
 		for (int i = 0; i < k - 1; i++) {
-			System.out.print(solution[i] + "*" + denominations[i] + "c" + " + ");
-			coinCount += solution[i];
+			if (solution[i] > 0) {
+				System.out.print(solution[i] + "*" + denominations[i] + "c" + " + ");
+				coinCount += solution[i];
+			}
 		}
-		System.out.println(solution[k-1] + "*" + denominations[k-1] + "c");
-		coinCount += solution[k-1];
+		if (solution[k-1] > 0) {
+			System.out.println(solution[k-1] + "*" + denominations[k-1] + "c");
+			coinCount += solution[k-1];
+		}
 
 		System.out.println("Optimal coin count: " + coinCount);
 	}
