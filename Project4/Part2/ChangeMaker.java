@@ -1,5 +1,5 @@
 /*
-Date: 
+Date: 2/27/17
 Project 4: ChangeMaker.java
 Audrey Chan: achan65
 Blain Weeks: bjweeks
@@ -11,11 +11,10 @@ import java.util.Collections;
 
 public class ChangeMaker {
 	public static void main(String args[]) {
-
 		int []denominations, solution;
 		int k, n;
 
-		System.out.println("Enter value of k and list of k denominations in decreasing order:");
+		System.out.println("Enter the number of coin-denominations and the set of coin values:");
 		Scanner s = new Scanner(System.in);
 		k = s.nextInt();
 		denominations = new int[k];
@@ -23,19 +22,42 @@ public class ChangeMaker {
 			denominations[i] = s.nextInt();
 		}
 		
-		System.out.println("Enter value of n. 0 to quit.");
+		System.out.println("\nEnter a positive amount to be changed (enter 0 to quit):");
 		n = s.nextInt();
 
 		while(n > 0) {
-
 			solution = change_DP(n, denominations);
-
+			System.out.println("\nDP Algorithm results");
 			printSolution(n, k, solution, denominations);
 
-			System.out.println("Enter value of n. 0 to quit.");
+			solution = change_greedy(n, denominations);
+			System.out.println("\nGreedy Algorithm results");
+			printSolution(n, k, solution, denominations);
+
+			System.out.println("\nEnter a positive amount to be changed (enter 0 to quit):");
 			n = s.nextInt();
 		}
 
+		System.out.println("Thanks for playing. Good Bye.");
+
+	}
+
+	public static int[] change_greedy(int n, int[] d) {
+		//d array is sorted in decreasing order
+		int remaining = n;
+		int[] counts = new int[d.length];
+		int toAdd = 0;
+		Arrays.fill(counts, 0);
+
+		for (int i = 0; i < d.length; i++) {
+			if (d[i] <= remaining) {
+				toAdd = remaining / d[i];
+				counts[i] += toAdd;
+				remaining -= d[i] * toAdd;
+			}
+		}
+
+		return counts;
 	}
 
 	public static int[] change_DP(int n, int[] d) {
@@ -62,8 +84,6 @@ public class ChangeMaker {
 			A[i] = minIdx;
 		}
 
-		System.out.println(Arrays.toString(A));
-
 		//fill solution array with coin counts
 		int j = A.length - 1;
 		while (j > 0) {
@@ -75,10 +95,8 @@ public class ChangeMaker {
 	}
 
 	private static void printSolution(int n, int k, int []solution, int []denominations) {
-
 		int coinCount = 0;
 
-		System.out.println("DP Algorithm results");
 		System.out.println("Amount: " + n);
 
 		System.out.print("Optimal distribution: ");
