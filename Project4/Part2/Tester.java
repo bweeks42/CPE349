@@ -27,7 +27,7 @@ public class Tester {
 		int[] DPSol;
 
 		System.out.print("Testing set" + setNum + ": ");
-		for (int n = 1; n <= 200; n++) {
+		for (int n = 1; n <= 100000; n++) {
 			greedySol = ChangeMaker.change_greedy(n, d);
 			DPSol = ChangeMaker.change_DP(n, d);
 			if (sumOfArray(greedySol) == sumOfArray(DPSol)) {
@@ -35,7 +35,7 @@ public class Tester {
 			}
 		}
 
-		System.out.println(matches + " matches in 200 tests");
+		System.out.println(matches + " matches in 100000 tests");
 	}
 
 	private static int sumOfArray(int[] x) {
