@@ -9,21 +9,21 @@ public class DiGraphTest {
 
       System.out.print("Enter number of vertices: ");
       n = s.nextInt();
+      s.nextLine();
 
       DiGraph graph = new DiGraph(n);
       printMenu();
 
-      char choice = s.next().charAt(0);
+      String choice = s.nextLine();
 
 
-      while(choice != 'q') {
-
+      while(!choice.equals("q")) {
          switch(choice){
-            case 'a':
-               System.out.print("Enter from: ");
+            case "a":
+               System.out.print("Enter from and to: ");
                from = s.nextInt();
-               System.out.print("Enter to: ");
                to = s.nextInt();
+               s.nextLine();
                if(graph.addEdge(from, to)) {
                   System.out.println("Edge from " + from + " to " + to + " was added.");
                }
@@ -31,11 +31,11 @@ public class DiGraphTest {
                   System.out.println("Edge from " + from + " to " + to + " already exists.");
                }
                break;
-            case 'd':
-               System.out.print("Enter from: ");
+            case "d":
+               System.out.print("Enter from and to: ");
                from = s.nextInt();
-               System.out.print("Enter to: ");
                to = s.nextInt();
+               s.nextLine();
                if(graph.deleteEdge(from, to)) {
                   System.out.println("Edge from " + from + " to " + to + " was deleted.");
                }
@@ -43,24 +43,29 @@ public class DiGraphTest {
                   System.out.println("Edge from " + from + " to " + to + " does not exist.");
                }
                break;
-            case 'e':
+            case "e":
                System.out.println("Edge count is: " + graph.edgeCount());
                break;
-            case 'v':
+            case "v":
                System.out.println("Vertex count is: " + graph.vertexCount());
                break;
-            case 'p':
+            case "p":
                System.out.println("The graph is the following:");
                graph.print();
                break;
-            case 't':
+            case "t":
                System.out.println("The topological ordering is:");
-               int []sol = graph.topSort();
-               for (int i = 0; i < sol.length; i++) {
-                  System.out.print(sol[i] + 1);
-                  if (i != sol.length - 1) {
-                     System.out.print(", ");
+               try{
+                  int []sol = graph.topSort();
+                  for (int i = 0; i < sol.length; i++) {
+                     System.out.print(sol[i] + 1);
+                     if (i != sol.length - 1) {
+                        System.out.print(", ");
+                     }
                   }
+               }
+               catch (Exception e) {
+                  System.out.print("Graph is cyclic. Cannot topologically sort.");
                }
                System.out.println();
                break;
@@ -70,8 +75,9 @@ public class DiGraphTest {
          }
 
          System.out.print("Enter menu choice: ");
-         choice = s.next().charAt(0);
+         choice = s.nextLine();
       }
+      System.out.println("Goodbye.");
    }
 
 

@@ -93,13 +93,9 @@ public class DiGraph {
          result[step++] = dq;
 
          for (int j = 0; j < directedGraph[dq].size(); j++) {
-               ind[directedGraph[dq].get(j).intValue()] -= 1;
-         }
-
-         for (int i = 0; i < ind.length; i++) {
-            if (ind[i] == 0) {
-               queue.addLast(new Integer(i));
-               ind[i] = -1;
+            ind[directedGraph[dq].get(j).intValue()] -= 1;
+            if (ind[directedGraph[dq].get(j).intValue()] == 0) {
+               queue.addLast(new Integer(directedGraph[dq].get(j).intValue()));
             }
          }
       }
