@@ -111,6 +111,9 @@ public class DiGraph {
    private VertexInfo[] BFS(int s) {
       int dq, currentVal;
       VertexInfo[] vi = new VertexInfo[vertexCount()];
+      for (int j = 0; j < vi.length; j++) {
+         vi[j] = new VertexInfo();
+      }
       LinkedList<Integer> queue = new LinkedList<Integer>();
       vi[s].distance = 0;
       queue.addLast(new Integer(s));
@@ -147,13 +150,13 @@ public class DiGraph {
             toPrint[i] = vi[next].parent;
             next = vi[next].parent;
          }
-         System.out.print("Shortest path from " + from + " to " + to + " is: ");
+         System.out.print("Shortest path from " + (from + 1) + " to " + (to + 1) + " is: ");
          for (int j = 0; j < toPrint.length; j++) {
             if (j < toPrint.length - 1) {
-               System.out.print(toPrint[j] + " -> ");
+               System.out.print((toPrint[j] + 1) + " -> ");
             }
             else {
-               System.out.print(toPrint[j]);
+               System.out.print(toPrint[j] + 1);
             }
          }
          System.out.println();
