@@ -102,4 +102,64 @@ public class DiGraph {
 
       return result;
    }
+
+   private class VertexInfo {
+      int distance = -1;
+      int parent = -1;
+   }
+
+   private VertexInfo[] BFS(int s) {
+      int dq, currentVal;
+      VertexInfo[] vi = new VertexInfo[vertexCount()];
+      LinkedList<Integer> queue = new LinkedList<Integer>();
+      vi[s].distance = 0;
+      queue.addLast(new Integer(s));
+
+      while (queue.size() != 0) {
+         dq = queue.removeFirst().intValue();
+         for (int i = 0; i < directedGraph[dq].size(); i++) {
+            currentVal = directedGraph[dq].get(i).intValue();
+            vi[currentVal].parent = dq;
+            vi[currentVal].distance = vi[dq].distance + 1;
+            queue.addLast(new Integer(currentVal));
+         }
+      }
+
+      return vi;
+   }
+
+   public boolean isTherePath(int from, int to) {
+      VertexInfo[] vi = BFS(from);
+      return (vi[to].distance != -1);
+   }
+
+   public int  lengthOfPath(int from, int to) {
+      VertexInfo[] vi = BFS(from);
+      return (vi[to].distance);
+   }
+
+   public void printPath(int from, int to) {
+      VertexInfo[] vi = BFS(from);
+      int[] toPrint = new int[vi[to].distance];
+      int next = to;
+      if (isTherePath(from, to)) {
+         for (int i = vi[to].distance - 1; i >= 0; i--) {
+            toPrint[i] = vi[next].parent;
+            next = vi[next].parent;
+         }
+         System.out.print("Shortest path from " + from + " to " + to + " is: ");
+         for (int j = 0; j < toPrint.length; j++) {
+            if (j < toPrint.length - 1) {
+               System.out.print(toPrint[j] + " -> ");
+            }
+            else {
+               System.out.print(toPrint[j]);
+            }
+         }
+         System.out.println();
+      } 
+      else {
+         System.out.println("There is no path.");
+      }
+   }
 }

@@ -69,7 +69,32 @@ public class DiGraphTest {
                }
                System.out.println();
                break;
-
+            case "i":
+               System.out.print("Enter from and to: ");
+               from = s.nextInt();
+               to = s.nextInt();
+               s.nextLine();
+               if (graph.isTherePath(from, to)) {
+                  System.out.println("There is a path from " + from + " to " + to + ".");
+               }
+               else {
+                  System.out.println("There is NOT a path from " + from + " to " + to + ".");
+               }
+               break;
+            case "l":
+               System.out.print("Enter from and to: ");
+               from = s.nextInt();
+               to = s.nextInt();
+               s.nextLine();
+               System.out.println("The distance from " + from + " to " + to + " is " + graph.lengthOfPath(from, to) + ".");
+               break;
+            case "s":
+               System.out.print("Enter from and to: ");
+               from = s.nextInt();
+               to = s.nextInt();
+               s.nextLine();
+               graph.printPath(from, to);
+               break;
             default:
                System.out.println("Invalid command.");
          }
