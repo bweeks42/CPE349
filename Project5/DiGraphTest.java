@@ -1,3 +1,10 @@
+/*
+Date: 3/14/17
+Project 4: DiGraphTest.java
+Audrey Chan: achan65
+Blain Weeks: bjweeks
+*/
+
 import java.util.Scanner;
 
 public class DiGraphTest {
@@ -5,7 +12,7 @@ public class DiGraphTest {
    public static void main(String []args) {
 
       Scanner s = new Scanner(System.in);
-      int n,from,to;
+      int n,from,to,source;
 
       System.out.print("Enter number of vertices: ");
       n = s.nextInt();
@@ -94,6 +101,12 @@ public class DiGraphTest {
                to = s.nextInt();
                s.nextLine();
                graph.printPath(from - 1, to - 1);
+               break;
+            case "b":
+               System.out.print("Enter a source vertex number: ");
+               source = s.nextInt();
+               s.nextLine();
+               graph.printTree(source - 1);
                break;
             default:
                System.out.println("Invalid command.");

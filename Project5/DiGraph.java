@@ -1,3 +1,10 @@
+/*
+Date: 3/14/17
+Project 4: DiGraph.java
+Audrey Chan: achan65
+Blain Weeks: bjweeks
+*/
+
 import java.util.LinkedList;
 import java.lang.Integer;
 import java.util.Arrays;
@@ -122,9 +129,11 @@ public class DiGraph {
          dq = queue.removeFirst().intValue();
          for (int i = 0; i < directedGraph[dq].size(); i++) {
             currentVal = directedGraph[dq].get(i).intValue();
-            vi[currentVal].parent = dq;
-            vi[currentVal].distance = vi[dq].distance + 1;
-            queue.addLast(new Integer(currentVal));
+            if (vi[currentVal].distance == -1) {
+               vi[currentVal].parent = dq;
+               vi[currentVal].distance = vi[dq].distance + 1;
+               queue.addLast(new Integer(currentVal));
+            }
          }
       }
 
@@ -143,9 +152,10 @@ public class DiGraph {
 
    public void printPath(int from, int to) {
       VertexInfo[] vi = BFS(from);
-      int[] toPrint = new int[vi[to].distance];
+      int[] toPrint = new int[vi[to].distance + 1];
       int next = to;
       if (isTherePath(from, to)) {
+         toPrint[vi[to].distance] = next;
          for (int i = vi[to].distance - 1; i >= 0; i--) {
             toPrint[i] = vi[next].parent;
             next = vi[next].parent;
@@ -163,6 +173,45 @@ public class DiGraph {
       } 
       else {
          System.out.println("There is no path.");
+      }
+   }
+
+   private class TreeNode {
+      int vertexNumber;
+      LinkedList<TreeNode> children;
+   }
+
+   private TreeNode buildTree(int s) {
+      VertexInfo[] vi = BFS(s);
+      TreeNode[] nodes = new TreeNode[vertexCount()];
+      for (int i = 0; i < nodes.length; i++) {
+         nodes[i] = new TreeNode();
+         nodes[i].vertexNumber = i;
+         nodes[i].children = new LinkedList<TreeNode>();
+      }
+
+      for (int j = 0; j < nodes.length; j++) {
+         if (vi[j].parent != -1) {
+            nodes[vi[j].parent].children.add(nodes[j]);
+         }
+      }
+
+      return nodes[s];
+   }
+
+   public void printTree(int s) {
+      TreeNode root = buildTree(s);
+      System.out.println("The breadth-first-tree is:");
+      printTree(root, 0);
+   }
+
+   private void printTree(TreeNode root, int depth) {
+      for (int i = 0; i < depth; i++) {
+         System.out.print("    ");
+      }
+      System.out.println(root.vertexNumber + 1);
+      for (int j = 0; j < root.children.size(); j++) {
+         printTree(root.children.get(j), depth + 1);
       }
    }
 }
